@@ -99,17 +99,6 @@ body {
 
 #bar { width: 0%; height: 100%; background: #6f42c1; transition: 0.5s ease; }
 
-.final-style {
-    font-family: 'Dancing Script', cursive !important;
-    font-size: 26px !important;
-    font-weight: bold !important;
-    color: #ffffff !important;
-    text-align: center !important;
-    display: block;
-    line-height: 1.6;
-    white-space: pre-line; /* This respects the line breaks you type */
-}
-
 @keyframes floatCard {
     0% {
         transform: translateY(0px);
@@ -120,4 +109,24 @@ body {
     100% {
         transform: translateY(0px);
     }
+}
+
+/* This centers everything inside the card on the last step */
+.centered-last-card {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px; /* Forces the box to take up space for centering */
+    text-align: center;
+}
+
+/* The style for the big question */
+.final-valentine-text {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 36px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    line-height: 1.4;
+    margin: 0;
 }
