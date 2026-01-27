@@ -1,5 +1,5 @@
 function createSparkles() {
-    for(let i=0; i<50; i++) {
+    for(let i=0; i<40; i++) {
         const s = document.createElement('div');
         s.className = 'sparkle';
         s.style.width = Math.random() * 3 + 'px';
@@ -14,17 +14,23 @@ function createSparkles() {
 function createHeartBurst(customX, customY) {
     const x = customX || window.innerWidth / 2;
     const y = customY || window.innerHeight / 2;
-    for(let i=0; i<30; i++) { // Increased for more "wow" factor
+    for(let i=0; i<25; i++) {
         const h = document.createElement('div');
         h.className = 'particle'; h.innerHTML = '❤️';
         h.style.left = x + 'px'; h.style.top = y + 'px';
         const angle = Math.random() * Math.PI * 2;
-        const velocity = Math.random() * 200 + 100;
+        const velocity = Math.random() * 180 + 70;
         h.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
         h.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
-        h.style.setProperty('--d', (Math.random() * 0.5 + 0.5) + 's');
+        h.style.setProperty('--d', (Math.random() * 0.4 + 0.6) + 's');
         document.body.appendChild(h);
         setTimeout(() => h.remove(), 1000);
+    }
+}
+
+function handleScreenClick(e) {
+    if (e.target.tagName !== 'BUTTON') {
+        createHeartBurst(e.clientX, e.clientY);
     }
 }
 
