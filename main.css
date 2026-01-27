@@ -176,3 +176,15 @@ body[style*="background-color: rgb(42, 5, 5)"] {
     color: #ff4d6d;
     text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
 }
+
+.btn-primary {
+    position: relative;
+    z-index: 1000; /* Force it to the front */
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+.glass-card {
+    position: relative;
+    z-index: 10;
+}

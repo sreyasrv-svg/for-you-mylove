@@ -1,5 +1,6 @@
 @media (max-width: 480px) {
     .glass-card { width: 92%; padding: 40px 20px; }
-    .stage h1 { font-size: 28px; }
+    /* FIX: Changed '.stage h1' to '.title' so it actually targets your text */
+    .title { font-size: 28px !important; } 
     #typewriter-output { font-size: 16px; }
 }
