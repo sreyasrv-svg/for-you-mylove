@@ -1,0 +1,5 @@
+@media (max-width: 480px) {
+    .glass-card { width: 92%; padding: 40px 20px; }
+    .stage h1 { font-size: 28px; }
+    #typewriter-output { font-size: 16px; }
+}

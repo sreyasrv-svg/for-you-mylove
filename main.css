@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600;800&display=swap');
+
+:root { 
+    --primary: #ff4d6d; 
+}
+
+body { 
+    margin: 0; 
+    background: radial-gradient(circle at center, #3c096c 0%, #240046 30%, #0a0e17 100%); 
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif; 
+    height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    overflow: hidden; 
+    perspective: 1000px;
+}
+
+/* Moving Star Layer */
+body::after {
+    content: "";
+    position: absolute;
+    inset: -100px;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity: 0.4;
+    z-index: 0;
+    animation: stars-move 100s linear infinite;
+}
+
+@keyframes stars-move {
+    from { transform: translate(0, 0); }
+    to { transform: translate(100px, 100px); }
+}
+
+.glass-card { 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(25px) saturate(180%); 
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    border-radius: 40px; 
+    width: 85%; 
+    max-width: 380px; 
+    padding: 50px 25px; 
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); 
+    text-align: center; 
+    position: relative; 
+    z-index: 10;
+    transition: transform 0.1s ease-out;
+}
+
+.stage h1 { 
+    font-family: 'Dancing Script', cursive; 
+    font-size: 32px; color: #fff; 
+    text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+    margin-bottom: 20px; 
+}
+
+#typewriter-output { 
+    font-size: 17px; line-height: 1.6; color: white; min-height: 120px;
+}
+
+.btn-primary { 
+    background: linear-gradient(45deg, #ff4d6d, #c9184a); 
+    color: white; border: none; padding: 18px 0; width: 100%; 
+    border-radius: 50px; font-weight: 800; cursor: pointer; 
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.4); 
+    margin-top: 30px; text-transform: uppercase;
+}
