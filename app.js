@@ -1,5 +1,5 @@
 let currentStep = 0;
-const typewriter = new Typewriter(document.getElementById('typewriter-output'));
+const typewriter = new Typewriter(document.getElementById('typewriter-output')), { html: true });
 
 async function nextChapter() {
     document.getElementById('bg-music').play();
