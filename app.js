@@ -12,7 +12,11 @@ async function nextChapter() {
     const btn = document.getElementById('action-btn');
     const chapters = SIMRAN_DATA.timeline;
 
-    if (currentStep >= chapters.length) return;
+    // --- EXTRA INTERACTION: Burst hearts if clicked after everything is done ---
+    if (currentStep >= chapters.length) {
+        if(typeof createBurst === 'function') createBurst();
+        return; 
+    }
 
     // Temporarily disable button during typing
     btn.disabled = true;
@@ -28,13 +32,15 @@ async function nextChapter() {
         // Change background to a deep romantic red and remove the dark gradient
         document.body.style.backgroundColor = "#2a0505"; 
         document.body.style.backgroundImage = "none";
+        
+        // Update tab title for the big reveal
+        document.title = "Will you be mine? ❤️";
     } else {
         // Update the title for regular chapters
         document.getElementById('title-display').innerText = chapters[currentStep].title;
     }
-    // ------------------------------------
 
-    // Trigger visual effect if function exists
+    // Trigger visual effect (heart burst) for each chapter transition
     if(typeof createBurst === 'function') createBurst();
 
     // Update progress bar
@@ -53,8 +59,12 @@ async function nextChapter() {
     if (currentStep < chapters.length - 1) {
         btn.innerText = "Continue";
     } else if (currentStep === chapters.length - 1) {
-        btn.innerText = "One Question..."; // Dramatic pause button before the final ask
+        btn.innerText = "One Question..."; 
     } else {
-        btn.innerText = "I Love You ❤️"; // Final state
+        btn.innerText = "I Love You ❤️"; 
     }
 }
+
+// --- EXTRA: Dynamic Browser Tab Message ---
+window.onblur = () => { document.title = "Come back to me! ❤️"; };
+window.onfocus = () => { document.title = "For Simran ❤️"; };

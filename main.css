@@ -145,3 +145,37 @@ body {
 .btn-primary {
     animation: heartbeat 2s infinite; /* Add this line to your existing btn-primary */
 }
+
+/* Makes the card glow like a star */
+.glass-card {
+    box-shadow: 0 0 20px rgba(111, 66, 193, 0.2), 
+                0 30px 60px rgba(0, 0, 0, 0.6) !important;
+    transition: box-shadow 0.5s ease;
+}
+
+/* Intensifies the glow when the final question appears */
+.centered-last-card {
+    box-shadow: 0 0 40px rgba(255, 77, 109, 0.4), 
+                0 30px 60px rgba(0, 0, 0, 0.7) !important;
+}
+
+@keyframes bgPulse {
+    0% { background-color: #2a0505; }
+    50% { background-color: #3d0a0a; }
+    100% { background-color: #2a0505; }
+}
+
+/* This only kicks in when the background is set to red in JS */
+body[style*="background-color: rgb(42, 5, 5)"] {
+    animation: bgPulse 3s infinite ease-in-out;
+}
+
+.app-header span {
+    letter-spacing: 2px;
+    transition: all 0.8s ease;
+}
+
+.glass-card:hover .app-header span {
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.8);
+}
