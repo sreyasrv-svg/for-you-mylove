@@ -2,6 +2,7 @@ let currentStep = 0;
 const typewriter = new Typewriter(document.getElementById('typewriter-output'));
 
 async function nextChapter() {
+    document.getElementById('bg-music').play();
     const btn = document.getElementById('action-btn');
     const chapters = SIMRAN_DATA.timeline;
 
@@ -29,6 +30,6 @@ async function nextChapter() {
     } else {
         btn.disabled = true;
         btn.style.opacity = "1";
-        btn.innerText = "End of our tale ❤️";
+        btn.innerText = "I Love You ❤️";
     }
 }
