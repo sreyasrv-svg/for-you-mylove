@@ -3,20 +3,21 @@ const SIMRAN_DATA = {
     // These are the "Chapters" that will show up one by one
     timeline: [
         { 
-            title: "CHAPTER I: The Big Bang 🌌", 
+            title: "The Big Bang 🌌", 
             msg: "Our universe started back in 4th standard. I still remember sitting together, not knowing that you would eventually become my whole world." 
         },
         { 
-            title: "CHAPTER II: Fixed Orbit 🚀", 
+            title: "Fixed Orbit 🚀", 
             msg: "My world has always revolved around you. No matter how much time passes, you are my everything." 
         },
         { 
-            title: "CHAPTER III: Into the Future ✨", 
+            title: "Into the Future ✨", 
             msg: "I want to travel the galaxy with you, marry you, and grow old together. Every light-year of this journey is worth it because it's with you." 
         },
         { 
-            title: "FINAL CHAPTER: Forever & Always ❤️", 
+            title: "Forever & Always ❤️", 
             msg: "Happy Valentine's Day ❤️, Simran! You're the brightest star in my sky. I'm so glad you're mine, today and for all time. All the stars align, when you say you’re mine. Will you be my Valentine?" 
         }
     ]
+
 };
