@@ -24,6 +24,10 @@ async function nextChapter() {
     messageElement.innerHTML = chapters[currentStep].msg; // This "forces" the bold style at the end
 
     currentStep++;
+
+    if (currentStep === chapters.length) {
+    document.getElementById('typewriter-output').classList.add('final-style');
+}
     
     if (currentStep < chapters.length) {
         btn.disabled = false;

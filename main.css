@@ -99,15 +99,15 @@ body {
 
 #bar { width: 0%; height: 100%; background: #6f42c1; transition: 0.5s ease; }
 
-.final-ask {
+.final-style {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 26px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    text-align: center !important;
     display: block;
-    font-family: 'Dancing Script', cursive;
-    font-size: 28px; /* Slightly smaller than your 34px main heading */
-    color: #ffffff;
-    font-weight: bold;
-    margin-top: 25px;
-    text-align: center;
-    line-height: 1.2;
+    line-height: 1.6;
+    white-space: pre-line; /* This respects the line breaks you type */
 }
 
 @keyframes floatCard {
