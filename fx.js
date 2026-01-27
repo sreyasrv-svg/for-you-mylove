@@ -48,7 +48,7 @@ function startHeartFlow() {
         
         // Cleanup: remove heart after its animation ends
         setTimeout(() => heart.remove(), duration * 1000);
-    }, 1200); // Frequency: One new heart every 1.2 seconds
+    }, 200); // Frequency: One new heart every 0.2 seconds
 }
 
 /**
