@@ -1,77 +1,53 @@
 let currentStep = 0;
-const typewriter = new Typewriter(document.getElementById('typewriter-output'));
+let typewriter; 
 
 async function nextChapter() {
-    const chapters = SIMRAN_DATA.timeline;
     const btn = document.getElementById('action-btn');
     const titleDisplay = document.getElementById('title-display');
     const output = document.getElementById('typewriter-output');
+    const chapters = SIMRAN_DATA.timeline;
 
-    // 1. End of journey check
-    if (currentStep >= chapters.length) {
-        if(typeof createBurst === 'function') createBurst();
-        return;
+    // Initialize typewriter only when button is clicked
+    if (!typewriter) {
+        typewriter = new Typewriter(output);
     }
 
-    // 2. Play music & handle browser blocks
+    if (currentStep >= chapters.length) return;
+
+    // 1. Play music safely
     const music = document.getElementById('bg-music');
-    if (music) music.play().catch(() => console.log("Music blocked by browser policy"));
+    if (music) music.play().catch(() => console.log("Music interaction required"));
 
-    // 3. SAFE REMOVAL: Only remove if they exist
+    // 2. Remove welcome elements
     const q = document.querySelector('.welcome-quote');
-    const startQuote = document.getElementById('start-quote');
     if (q) q.remove();
-    if (startQuote) startQuote.remove();
 
-    // 4. Lock button & Wipe the heart image
+    // 3. Lock button and clear screen
     btn.disabled = true;
     btn.style.opacity = "0.5";
     output.innerHTML = ""; 
 
-    // 5. Handle Visual Transitions
-    if (currentStep === chapters.length - 1) {
-        titleDisplay.style.display = 'none'; 
-        document.querySelector('.glass-card').classList.add('centered-last-card'); 
-        output.classList.add('final-valentine-text'); 
-        
-        document.body.style.backgroundColor = "#2a0505"; 
-        document.body.style.backgroundImage = "none";
-        document.title = "Will you be mine? ❤️";
-    } else {
-        // Change title IMMEDIATELY
-        titleDisplay.innerText = chapters[currentStep].title;
-    }
+    // 4. Update Title
+    titleDisplay.innerText = chapters[currentStep].title;
 
-    if(typeof createBurst === 'function') createBurst();
-
-    // 6. Update Progress
-    const progress = ((currentStep + 1) / chapters.length) * 100;
-    const bar = document.getElementById('bar');
-    if (bar) bar.style.width = progress + "%";
-
-    // 7. Start Typing
+    // 5. Typing with Safety Fallback
     try {
-        await typewriter.write(chapters[currentStep].msg);
+        await Promise.race([
+            typewriter.write(chapters[currentStep].msg),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 6000))
+        ]);
     } catch (e) {
-        console.error("Typewriter stalled, manual override:", e);
         output.innerText = chapters[currentStep].msg;
     }
 
-    // 8. Move to next step
+    // 6. Progress & Unlock
     currentStep++;
-    
-    // 9. UNLOCK button 
+    const bar = document.getElementById('bar');
+    if (bar) bar.style.width = ((currentStep) / chapters.length * 100) + "%";
+
     btn.disabled = false;
     btn.style.opacity = "1";
-
-    // 10. Set button text
-    if (currentStep < chapters.length - 1) {
-        btn.innerText = "Continue";
-    } else if (currentStep === chapters.length - 1) {
-        btn.innerText = "One Question..."; 
-    } else {
-        btn.innerText = "I Love You ❤️"; 
-    }
+    btn.innerText = currentStep < chapters.length ? "Continue" : "I Love You ❤️";
 }
 
 // Browser Tab Messages

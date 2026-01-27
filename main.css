@@ -169,3 +169,10 @@ body {
 body[style*="background-color: rgb(42, 5, 5)"] {
     animation: bgPulse 3s infinite ease-in-out;
 }
+
+.final-valentine-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #ff4d6d;
+    text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+}

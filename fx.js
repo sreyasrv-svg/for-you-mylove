@@ -63,3 +63,13 @@ function handleScreenClick(e) {
 
 // Initialize the background flow
 startHeartFlow();
+
+/**
+ * Handles clicks anywhere on the screen to create heart bursts
+ */
+function handleScreenClick(event) {
+    // Only create burst if the user didn't click the button itself
+    if (event.target.id !== 'action-btn') {
+        createBurst(event.clientX, event.clientY);
+    }
+}
