@@ -1,6 +1,5 @@
 const SIMRAN_DATA = {
     name: "Simran",
-    // These are the "Chapters" that will show up one by one
     timeline: [
         { 
             title: "The Big Bang 🌌", 
@@ -23,4 +22,4 @@ const SIMRAN_DATA = {
             msg: "Will you be my Valentine?"
         }
     ]
-};
+}; // <--- Make sure there is nothing after this semicolon
