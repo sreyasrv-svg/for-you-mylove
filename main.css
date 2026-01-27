@@ -135,3 +135,13 @@ body {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.btn-primary {
+    animation: heartbeat 2s infinite; /* Add this line to your existing btn-primary */
+}
