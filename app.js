@@ -5,35 +5,24 @@ async function nextChapter() {
     const btn = document.getElementById('action-btn');
     const chapters = SIMRAN_DATA.timeline;
 
-    // Restart Logic: If we are at the end, reset everything
     if (currentStep >= chapters.length) {
-        currentStep = 0;
-        document.getElementById('bar').style.width = "0%";
-        btn.innerText = "BEGIN OUR TALE";
-        document.getElementById('typewriter-output').innerHTML = "";
-        document.getElementById('title-display').innerText = "Our Journey";
+        location.reload(); // Restarts the whole experience
         return;
     }
 
     btn.disabled = true;
-    btn.innerText = "READING...";
+    btn.style.opacity = "0.5";
 
-    // Update Title & Progress
     document.getElementById('title-display').innerText = chapters[currentStep].title;
-    createHeartBurst(); // Burst from center on button click
+    createHeartBurst();
 
     const progress = ((currentStep + 1) / chapters.length) * 100;
     document.getElementById('bar').style.width = progress + "%";
 
-    // Type Message
     await typewriter.write(chapters[currentStep].msg);
 
     currentStep++;
     btn.disabled = false;
-
-    if (currentStep < chapters.length) {
-        btn.innerText = "NEXT CHAPTER";
-    } else {
-        btn.innerText = "REPLAY OUR STORY ❤️";
-    }
+    btn.style.opacity = "1";
+    btn.innerText = (currentStep < chapters.length) ? "NEXT CHAPTER" : "REPLAY OUR STORY ❤️";
 }
