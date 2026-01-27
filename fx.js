@@ -51,16 +51,6 @@ function startHeartFlow() {
     }, 200); // Frequency: One new heart every 0.2 seconds
 }
 
-/**
- * Global click handler to trigger effects
- */
-function handleScreenClick(e) {
-    // Prevent burst if clicking the actual button
-    if (e.target.tagName !== 'BUTTON') {
-        createBurst(e.clientX, e.clientY);
-    }
-}
-
 // Initialize the background flow
 startHeartFlow();
 
