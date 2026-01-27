@@ -8,5 +8,5 @@
 
 ---
 
-\*Private Archive | February 2026\*
+\*Private Archive | 2026\*
 
