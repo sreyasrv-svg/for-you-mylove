@@ -27,7 +27,7 @@ body::before {
 /* Floating Background Hearts */
 .bg-heart {
     position: absolute;
-    color: rgba(255, 77, 109, 0.25); /* Muted pink to keep it sleek */
+    color: rgba(255, 77, 109, 0.8); /* Muted pink to keep it sleek */
     pointer-events: none;
     z-index: 1;
     font-size: 20px;
@@ -45,4 +45,5 @@ body::before {
         transform: translateY(-10vh) rotate(360deg);
         opacity: 0;
     }
+
 }
