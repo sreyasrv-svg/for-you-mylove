@@ -169,13 +169,3 @@ body {
 body[style*="background-color: rgb(42, 5, 5)"] {
     animation: bgPulse 3s infinite ease-in-out;
 }
-
-.app-header span {
-    letter-spacing: 2px;
-    transition: all 0.8s ease;
-}
-
-.glass-card:hover .app-header span {
-    letter-spacing: 4px;
-    color: rgba(255, 255, 255, 0.8);
-}
