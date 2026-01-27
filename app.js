@@ -7,27 +7,29 @@ async function nextChapter() {
     const titleDisplay = document.getElementById('title-display');
     const output = document.getElementById('typewriter-output');
 
-    // 1. Endless heart burst after the journey ends
+    // 1. End of journey check
     if (currentStep >= chapters.length) {
         if(typeof createBurst === 'function') createBurst();
         return;
     }
 
-    // 2. Clear the static welcome quote 
+    // 2. Play music & handle browser blocks
+    const music = document.getElementById('bg-music');
+    if (music) music.play().catch(() => console.log("Music blocked by browser policy"));
+
+    // 3. SAFE REMOVAL: Only remove if they exist
     const q = document.querySelector('.welcome-quote');
+    const startQuote = document.getElementById('start-quote');
     if (q) q.remove();
+    if (startQuote) startQuote.remove();
 
-    // 3. Play music
-    document.getElementById('bg-music').play();
-
-    // 4. LOCK button and WIPE the initial heart image/text
+    // 4. Lock button & Wipe the heart image
     btn.disabled = true;
     btn.style.opacity = "0.5";
-    output.innerHTML = ""; // This removes the initial floating heart image
+    output.innerHTML = ""; 
 
     // 5. Handle Visual Transitions
     if (currentStep === chapters.length - 1) {
-        // FINAL CARD
         titleDisplay.style.display = 'none'; 
         document.querySelector('.glass-card').classList.add('centered-last-card'); 
         output.classList.add('final-valentine-text'); 
@@ -36,32 +38,33 @@ async function nextChapter() {
         document.body.style.backgroundImage = "none";
         document.title = "Will you be mine? ❤️";
     } else {
-        // REGULAR CARDS: Update title immediately
-        titleDisplay.style.display = 'block'; // Ensure title is visible
+        // Change title IMMEDIATELY
         titleDisplay.innerText = chapters[currentStep].title;
     }
 
     if(typeof createBurst === 'function') createBurst();
 
-    // 6. Update progress bar
+    // 6. Update Progress
     const progress = ((currentStep + 1) / chapters.length) * 100;
-    document.getElementById('bar').style.width = progress + "%";
+    const bar = document.getElementById('bar');
+    if (bar) bar.style.width = progress + "%";
 
-    // 7. Start Typing the message
+    // 7. Start Typing
     try {
         await typewriter.write(chapters[currentStep].msg);
     } catch (e) {
-        console.error("Typewriter stalled:", e);
+        console.error("Typewriter stalled, manual override:", e);
+        output.innerText = chapters[currentStep].msg;
     }
 
-    // 8. Move to the next step
+    // 8. Move to next step
     currentStep++;
     
     // 9. UNLOCK button 
     btn.disabled = false;
     btn.style.opacity = "1";
 
-    // 10. Set button text for the next interaction
+    // 10. Set button text
     if (currentStep < chapters.length - 1) {
         btn.innerText = "Continue";
     } else if (currentStep === chapters.length - 1) {
