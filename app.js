@@ -1,5 +1,5 @@
 let currentStep = 0;
-const typewriter = new Typewriter(document.getElementById('typewriter-output')), { html: true });
+const typewriter = new Typewriter(document.getElementById('typewriter-output'), { html: true });
 
 async function nextChapter() {
     document.getElementById('bg-music').play();
@@ -32,4 +32,5 @@ async function nextChapter() {
         btn.style.opacity = "1";
         btn.innerText = "I Love You ❤️";
     }
+
 }
