@@ -28,6 +28,7 @@ body {
     text-align: center;
     position: relative;
     box-sizing: border-box;
+    animation: floatCard 4s ease-in-out infinite;
 }
 
 .app-header {
@@ -107,4 +108,16 @@ body {
     margin-top: 25px;
     text-align: center;
     line-height: 1.2;
+}
+
+@keyframes floatCard {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
