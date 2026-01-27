@@ -2,57 +2,58 @@ let currentStep = 0;
 const typewriter = new Typewriter(document.getElementById('typewriter-output'));
 
 async function nextChapter() {
-    // 1. Remove the welcome quote only once when the journey starts
+    const chapters = SIMRAN_DATA.timeline;
+    const btn = document.getElementById('action-btn');
+
+    // 1. Safety check: if we're out of chapters, stop.
+    if (currentStep >= chapters.length) {
+        if(typeof createBurst === 'function') createBurst();
+        return;
+    }
+
+    // 2. Clear welcome quote
     const q = document.querySelector('.welcome-quote');
     if (q) q.remove();
 
-    // Start background music on first interaction
+    // 3. Start music
     document.getElementById('bg-music').play();
-    
-    const btn = document.getElementById('action-btn');
-    const chapters = SIMRAN_DATA.timeline;
 
-    // --- EXTRA INTERACTION: Burst hearts if clicked after everything is done ---
-    if (currentStep >= chapters.length) {
-        if(typeof createBurst === 'function') createBurst();
-        return; 
-    }
-
-    // Temporarily disable button during typing
+    // 4. Lock button during typing
     btn.disabled = true;
     btn.style.opacity = "0.5";
 
-    // --- LOGIC FOR THE LAST CARD REVEAL ---
+    // 5. Handle the visual reveal for the LAST card
     if (currentStep === chapters.length - 1) {
-        // Hide title, center the box, and apply big cursive font
         document.getElementById('title-display').style.display = 'none'; 
         document.querySelector('.glass-card').classList.add('centered-last-card'); 
         document.getElementById('typewriter-output').classList.add('final-valentine-text'); 
-
-        // Change background to a deep romantic red and remove the dark gradient
+        
         document.body.style.backgroundColor = "#2a0505"; 
         document.body.style.backgroundImage = "none";
-        
-        // Update tab title for the big reveal
         document.title = "Will you be mine? ❤️";
     } else {
-        // Update the title for regular chapters
+        // Update title for regular cards
         document.getElementById('title-display').innerText = chapters[currentStep].title;
     }
 
-    // Trigger visual effect (heart burst) for each chapter transition
+    // 6. Visual effect
     if(typeof createBurst === 'function') createBurst();
 
-    // Update progress bar
+    // 7. Update progress
     const progress = ((currentStep + 1) / chapters.length) * 100;
     document.getElementById('bar').style.width = progress + "%";
 
-    // Type out the message from config.js
-    await typewriter.write(chapters[currentStep].msg);
+    // 8. Type the message (This is where it usually gets stuck)
+    try {
+        await typewriter.write(chapters[currentStep].msg);
+    } catch (e) {
+        console.log("Typewriter error, moving on...");
+    }
 
+    // 9. Increment step
     currentStep++;
     
-    // Re-enable button and handle button text changes
+    // 10. UNLOCK button and set text
     btn.disabled = false;
     btn.style.opacity = "1";
 
@@ -65,6 +66,6 @@ async function nextChapter() {
     }
 }
 
-// --- EXTRA: Dynamic Browser Tab Message ---
-window.onblur = () => { document.title = "Come back to me! ❤️"; };
+// Tab Messages
+window.onblur = () => { if(currentStep < 5) document.title = "Come back to me! ❤️"; };
 window.onfocus = () => { document.title = "For Simran ❤️"; };
