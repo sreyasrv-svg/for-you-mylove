@@ -4,7 +4,7 @@ class Typewriter {
         this.element.innerHTML = ""; 
         for (let char of text) {
             this.element.innerHTML += char; 
-            await new Promise(r => setTimeout(r, 40));
+            await new Promise(r => setTimeout(r, 35));
         }
     }
 }
