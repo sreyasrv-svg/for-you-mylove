@@ -1,3 +1,4 @@
+/* Subtle Grid Background */
 body::before {
     content: "";
     position: absolute;
@@ -5,8 +6,10 @@ body::before {
     background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size: 32px 32px;
     pointer-events: none;
+    z-index: 0;
 }
 
+/* Sparkles that appear on click */
 .particle {
     position: absolute; 
     pointer-events: none; 
@@ -19,4 +22,27 @@ body::before {
 @keyframes fadeUp {
     0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
     100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y) - 50px)) scale(1.2); opacity: 0; }
+}
+
+/* Floating Background Hearts */
+.bg-heart {
+    position: absolute;
+    color: rgba(255, 77, 109, 0.25); /* Muted pink to keep it sleek */
+    pointer-events: none;
+    z-index: 1;
+    font-size: 20px;
+    animation: floatUp var(--d) linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+    }
 }
