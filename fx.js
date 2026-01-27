@@ -8,12 +8,12 @@ function createBurst(customX, customY) {
     for(let i=0; i<12; i++) {
         const h = document.createElement('div');
         h.className = 'particle'; 
-        h.innerHTML = '✦'; // Linear style sparkles
+        h.innerHTML = '❤️'; // Linear style sparkles
         h.style.left = x + 'px'; 
         h.style.top = y + 'px';
         
         const angle = Math.random() * Math.PI * 2;
-        const velocity = Math.random() * 100 + 40;
+        const velocity = Math.random() * 150 + 50;
         
         h.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
         h.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
