@@ -93,7 +93,7 @@ async function nextChapter() {
         btn.innerText = "One Question...";
     } else {
         // We just finished the Last Card. We are done.
-        btn.innerText = "I Love You ❤️";
+        btn.innerText = "Yes!!❤️I Love You ❤️";
     }
 
     // Visual effect
