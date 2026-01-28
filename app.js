@@ -25,6 +25,11 @@ async function nextChapter() {
         return;
     }
 
+    // Special explosion only when clicking the final "I Love You ❤️" button
+    if (currentStep >= chapters.length && btn.innerText.includes('I Love You')) {
+    loveExplosion();
+}
+
     // 3. Play music safely
     const music = document.getElementById('bg-music');
     if (music) music.play().catch(() => console.log("Music interaction required"));
