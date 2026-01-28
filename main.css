@@ -189,13 +189,85 @@ body[style*="background-color: rgb(42, 5, 5)"] {
     z-index: 10;
 }
 
+/* Make Yes/No buttons feel like normal btn-primary but with custom colors */
+#yes-love-btn,
+#no-dodge-btn {
+    width: 100% !important;
+    padding: 16px 0 !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    text-transform: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    animation: heartbeat 2s infinite !important; /* same heartbeat as others */
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    border: none !important;
+    position: relative !important;
+    z-index: 1000 !important;
+    pointer-events: auto !important;
+}
+
+/* Yes button - pink gradient + white text */
+#yes-love-btn {
+    background: linear-gradient(135deg, #ff3366, #ff85a2) !important;
+    color: white !important;
+    box-shadow: 0 0 20px rgba(255, 51, 102, 0.5) !important;
+}
+
+#yes-love-btn:hover {
+    background: linear-gradient(135deg, #ff1a4d, #ff6699) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 0 35px rgba(255, 51, 102, 0.7) !important;
+}
+
+/* No button - dark like disabled but still visible */
+#no-dodge-btn {
+    background: #222 !important;          /* darker gray */
+    color: #ddd !important;               /* light text */
+    box-shadow: 0 0 15px rgba(0,0,0,0.4) !important;
+}
+
 #no-dodge-btn:hover {
     background: #ff3366 !important;
     color: white !important;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px #ff3366;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 0 30px #ff3366 !important;
+}
+
+/* Remove any leftover inline overrides that mess with look */
+#proposal-buttons button {
+    margin-top: 0 !important;
 }
 
 #proposal-buttons {
-    z-index: 20; /* above other stuff */
+    width: 100% !important;
+    max-width: 300px !important;  /* match your glass-card max-width roughly */
+    margin: 30px auto !important;
+}
+
+#yes-love-btn,
+#no-dodge-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 220px !important;  /* force them not to shrink too much */
+    padding: 16px 24px !important;  /* more horizontal padding like normal buttons */
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+}
+
+/* Make them look even closer to original btn-primary shape */
+#yes-love-btn {
+    background: linear-gradient(135deg, #ff3366, #ff6699) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4) !important;
+}
+
+#no-dodge-btn {
+    background: #1a1a1a !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
 }

@@ -21,6 +21,12 @@ async function nextChapter() {
     const output = document.getElementById('typewriter-output');
     const chapters = SIMRAN_DATA.timeline;
 
+    // Extra safety: Hide proposal buttons on all steps except the absolute final one
+const proposalDiv = document.getElementById('proposal-buttons');
+if (proposalDiv && currentStep < chapters.length) {
+    proposalDiv.style.display = 'none';
+}
+
     // 1. Initialize typewriter only on first click to prevent crashes
     if (!typewriterInstance) {
         typewriterInstance = new Typewriter(output);
@@ -76,12 +82,14 @@ async function nextChapter() {
 btn.disabled = false;
 btn.style.opacity = "1";
 
-if (currentStep < chapters.length - 1) {
+if (currentStep < chapters.length - 2) {
     btn.innerText = "Continue";
+} else if (currentStep === chapters.length - 2) {
+    btn.innerText = "Continue";  // This is on the "Forever & Always" card
 } else if (currentStep === chapters.length - 1) {
-    btn.innerText = "One Question...";
+    btn.innerText = "One Question...";  // Also on the last card if needed, but will be hidden soon
 } else {
-    // Final stage - show Yes / No buttons
+    // Final step after last message typed — show Yes/No
     btn.style.display = 'none';
 
     const proposalDiv = document.getElementById('proposal-buttons');
@@ -91,22 +99,56 @@ if (currentStep < chapters.length - 1) {
         const yesBtn = document.getElementById('yes-love-btn');
         const noBtn = document.getElementById('no-dodge-btn');
 
-        if (yesBtn) yesBtn.style.display = 'block';
-        if (noBtn) noBtn.style.display = 'block';
+        setTimeout(() => {
+            if (yesBtn) {
+                yesBtn.style.display = 'block';
+                yesBtn.style.visibility = 'visible';
+                yesBtn.style.opacity = '1';
+            }
+            if (noBtn) {
+                noBtn.style.display = 'block';
+                noBtn.style.visibility = 'visible';
+                noBtn.style.opacity = '1';
+                noBtn.style.pointerEvents = 'auto';  // make sure clickable
+                noBtn.style.cursor = 'pointer';
+            }
+        }, 200);  // slightly longer delay so DOM catches up
 
-        // Yes triggers explosion
         if (yesBtn) {
             yesBtn.onclick = () => {
                 loveExplosion();
                 if (typeof createBurst === 'function') createBurst();
-                proposalDiv.style.display = 'none';
             };
         }
 
-        // Dodging for No
-        if (typeof makeNoButtonDodge === 'function' && noBtn) {
-            makeNoButtonDodge();
-        }
+        if (noBtn) {
+    // If you still want dodging — keep this
+    if (typeof makeNoButtonDodge === 'function') {
+        makeNoButtonDodge();
+    }
+
+    // NEW: Add click behavior
+    noBtn.onclick = function() {
+        showNoTeaseMessage();           // show popup message
+
+        // Optional: little heart burst where the no button was
+        const rect = noBtn.getBoundingClientRect();
+        const clickX = rect.left + rect.width/2;
+        const clickY = rect.top + rect.height/2;
+        createBurst(clickX, clickY);
+
+        // Make NO button disappear after click
+        setTimeout(() => {
+            noBtn.style.transition = 'all 0.6s ease';
+            noBtn.style.opacity = '0';
+            noBtn.style.transform = 'scale(0.7)';
+            setTimeout(() => {
+                noBtn.style.display = 'none';
+                // Optional: you can also disable Yes button or change text etc.
+            }, 700);
+        }, 800); // small delay so they see the message first
+    };
+}
     }
 }
 

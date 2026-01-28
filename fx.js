@@ -112,7 +112,7 @@ function loveExplosion() {
 
     // 3. Floating "YES!!" or custom message in center (you can change text)
     const msg = document.createElement('div');
-    msg.innerHTML = '❤️I LOVE YOU TOO!!❤️Simran❤️';
+    msg.innerHTML = '❤️I LOVE YOU TOO!!❤️\n❤️\n❤️Simran❤️';
     msg.style.position = 'absolute';
     msg.style.left = '50%';
     msg.style.top = '50%';
@@ -151,37 +151,46 @@ function isFinalLoveClick() {
     return btn && btn.innerText.includes('I Love You');
 }
 
-// Dodging No button fun
-function makeNoButtonDodge() {
-    const noBtn = document.getElementById('no-dodge-btn');
-    if (!noBtn) return;
+// fx.js — add this function
+function showNoTeaseMessage() {
+    const msg = document.createElement('div');
+    msg.innerHTML = '🌚Nope😏';
+    //               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ change text to whatever you like
 
-    noBtn.addEventListener('mouseover', () => {  // hover starts the chaos
-        dodgeNoButton();
-    });
+    msg.style.position = 'fixed';
+    msg.style.top = '50%';
+    msg.style.left = '50%';
+    msg.style.transform = 'translate(-50%, -50%)';
+    msg.style.background = 'rgba(15, 15, 20, 0.92)';
+    msg.style.backdropFilter = 'blur(10px)';
+    msg.style.padding = '28px 40px';
+    msg.style.borderRadius = '20px';
+    msg.style.border = '1px solid rgba(255, 77, 109, 0.4)';
+    msg.style.color = '#ff4d6d';
+    msg.style.fontFamily = "'Dancing Script', cursive";
+    msg.style.fontSize = '2.1rem';
+    msg.style.textAlign = 'center';
+    msg.style.lineHeight = '1.3';
+    msg.style.boxShadow = '0 0 40px rgba(255, 51, 102, 0.6)';
+    msg.style.zIndex = '9999';
+    msg.style.opacity = '0';
+    msg.style.pointerEvents = 'none';
+    msg.style.whiteSpace = 'pre-line';
 
-    noBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // prevent any default
-        dodgeNoButton();
-        noBtn.innerText = "Nope... 😏";  // changes text each time
-    });
+    document.body.appendChild(msg);
 
-    function dodgeNoButton() {
-        const maxX = window.innerWidth - 220;   // keep it on screen
-        const maxY = window.innerHeight - 100;
-        const newX = Math.random() * maxX;
-        const newY = Math.random() * maxY;
+    // Fade in
+    setTimeout(() => {
+        msg.style.transition = 'all 0.7s ease';
+        msg.style.opacity = '1';
+        msg.style.transform = 'translate(-50%, -50%) scale(1.05)';
+    }, 100);
 
-        noBtn.style.position = 'fixed';         // detach from card
-        noBtn.style.left = newX + 'px';
-        noBtn.style.top = newY + 'px';
-        noBtn.style.transition = 'all 0.4s ease-out';
-        noBtn.style.transform = 'scale(0.9) rotate(' + (Math.random()*20 - 10) + 'deg)';
-        
-        // Optional: make it smaller/faster after a few dodges
-        if (Math.random() < 0.3) {
-            noBtn.style.fontSize = '0.9em';
-            noBtn.style.padding = '12px 0';
-        }
-    }
+    // Fade out + remove after ~2.5 seconds
+    setTimeout(() => {
+        msg.style.opacity = '0';
+        msg.style.transform = 'translate(-50%, -50%) scale(0.92)';
+    }, 2200);
+
+    setTimeout(() => msg.remove(), 3000);
 }
