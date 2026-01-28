@@ -26,14 +26,6 @@ async function nextChapter() {
         typewriterInstance = new Typewriter(output);
     }
 
-    // 2. Safety check: Stop if we are out of chapters
-    // If we are at the end, clicking "I Love You" just triggers hearts
-    if (currentStep >= chapters.length) {
-        if(typeof createBurst === 'function') createBurst();
-        isTyping = false;
-        return;
-    }
-
     // Special explosion only when clicking the final "I Love You ❤️" button
     if (currentStep >= chapters.length && btn.innerText.includes('I Love You')) {
     loveExplosion();
@@ -81,49 +73,47 @@ async function nextChapter() {
     currentStep++;
     
     // 10. UNLOCK BUTTON & SET TEXT LOGIC
-    btn.disabled = false;
-    btn.style.opacity = "1";
+btn.disabled = false;
+btn.style.opacity = "1";
 
-    // --- HERE IS THE LOGIC YOU ASKED FOR ---
-    if (currentStep < chapters.length - 1) {
-        // For all normal chapters (1, 2, 3), button says "Continue"
-        btn.innerText = "Continue";
-    } else if (currentStep === chapters.length - 1) {
-        // We just finished the 2nd to last card. Next click is the final one.
-        btn.innerText = "One Question...";
-    } else {
-    // We just finished the Last Card. Show Yes/No proposal instead of old button
-    btn.style.display = 'none';  // hide old "I Love You" button
+if (currentStep < chapters.length - 1) {
+    btn.innerText = "Continue";
+} else if (currentStep === chapters.length - 1) {
+    btn.innerText = "One Question...";
+} else {
+    // Final stage - show Yes / No buttons
+    btn.style.display = 'none';
 
     const proposalDiv = document.getElementById('proposal-buttons');
     if (proposalDiv) {
         proposalDiv.style.display = 'flex';
-        
+
         const yesBtn = document.getElementById('yes-love-btn');
         const noBtn = document.getElementById('no-dodge-btn');
-        
-        yesBtn.style.display = 'block';
-        noBtn.style.display = 'block';
-        
-        // Yes button triggers the explosion
-        yesBtn.onclick = () => {
-            loveExplosion();
-            if (typeof createBurst === 'function') createBurst();
-            // Optional: hide proposal after yes
-            proposalDiv.style.display = 'none';
-        };
 
-        // Start dodging behavior
-        if (typeof makeNoButtonDodge === 'function') {
+        if (yesBtn) yesBtn.style.display = 'block';
+        if (noBtn) noBtn.style.display = 'block';
+
+        // Yes triggers explosion
+        if (yesBtn) {
+            yesBtn.onclick = () => {
+                loveExplosion();
+                if (typeof createBurst === 'function') createBurst();
+                proposalDiv.style.display = 'none';
+            };
+        }
+
+        // Dodging for No
+        if (typeof makeNoButtonDodge === 'function' && noBtn) {
             makeNoButtonDodge();
         }
     }
 }
 
-    // Visual effect
-    if(typeof createBurst === 'function') createBurst();
+// Visual effect
+if(typeof createBurst === 'function') createBurst();
 
-    isTyping = false;
+isTyping = false;
     
 }
 
