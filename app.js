@@ -1,7 +1,12 @@
 let currentStep = 0;
 let typewriterInstance = null; 
 
+let isTyping = false;
+
 async function nextChapter() {
+    if (isTyping) return;     // ← ADD THIS LINE
+    isTyping = true;          // ← ADD THIS LINE
+
     const btn = document.getElementById('action-btn');
     const titleDisplay = document.getElementById('title-display');
     const output = document.getElementById('typewriter-output');
@@ -16,6 +21,7 @@ async function nextChapter() {
     // If we are at the end, clicking "I Love You" just triggers hearts
     if (currentStep >= chapters.length) {
         if(typeof createBurst === 'function') createBurst();
+        isTyping = false;
         return;
     }
 
@@ -48,14 +54,7 @@ async function nextChapter() {
     }
 
     // 7. Start Typing with a safety timeout
-    try {
-        await Promise.race([
-            typewriterInstance.write(chapters[currentStep].msg),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 6000))
-        ]);
-    } catch (e) {
-        output.innerText = chapters[currentStep].msg;
-    }
+    await typewriterInstance.write(chapters[currentStep].msg);
 
     // 8. Update Progress Bar
     const bar = document.getElementById('bar');
@@ -85,6 +84,9 @@ async function nextChapter() {
 
     // Visual effect
     if(typeof createBurst === 'function') createBurst();
+
+    isTyping = false;
+    
 }
 
 // Browser Tab Messages
