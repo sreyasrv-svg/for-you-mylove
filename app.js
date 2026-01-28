@@ -1,5 +1,5 @@
 let currentStep = 0;
-let typewriter; 
+let typewriterInstance = null; 
 
 async function nextChapter() {
     const btn = document.getElementById('action-btn');
@@ -7,31 +7,36 @@ async function nextChapter() {
     const output = document.getElementById('typewriter-output');
     const chapters = SIMRAN_DATA.timeline;
 
-    // FIX: Initialize typewriter only when button is clicked to prevent crashes
-    if (!typewriter) {
-        typewriter = new Typewriter(output);
+    // 1. Initialize typewriter only on first click to prevent crashes
+    if (!typewriterInstance) {
+        typewriterInstance = new Typewriter(output);
     }
 
-    if (currentStep >= chapters.length) return;
+    // 2. Safety check: Stop if we are out of chapters
+    // If we are at the end, clicking "I Love You" just triggers hearts
+    if (currentStep >= chapters.length) {
+        if(typeof createBurst === 'function') createBurst();
+        return;
+    }
 
-    // 1. Play music safely
+    // 3. Play music safely
     const music = document.getElementById('bg-music');
     if (music) music.play().catch(() => console.log("Music interaction required"));
 
-    // 2. Remove welcome elements
+    // 4. Remove welcome elements
     const q = document.querySelector('.welcome-quote');
-    const startQuote = document.getElementById('start-quote'); // Added safety check
+    const startQuote = document.getElementById('start-quote'); 
     if (q) q.remove();
     if (startQuote) startQuote.remove();
 
-    // 3. Lock button and clear screen
+    // 5. Lock button and clear screen
     btn.disabled = true;
     btn.style.opacity = "0.5";
     output.innerHTML = ""; 
 
-    // 4. Update Title & Check for Final Card (Layout Fix Only)
+    // 6. Update Title & Check for Final Card
     if (currentStep === chapters.length - 1) {
-        // This visual logic is needed so the final card looks right
+        // Visual logic for the Final "Valentine" Card
         titleDisplay.style.display = 'none'; 
         document.querySelector('.glass-card').classList.add('centered-last-card'); 
         output.classList.add('final-valentine-text'); 
@@ -42,34 +47,43 @@ async function nextChapter() {
         titleDisplay.innerText = chapters[currentStep].title;
     }
 
-    // 5. Typing with Safety Fallback
+    // 7. Start Typing with a safety timeout
     try {
         await Promise.race([
-            typewriter.write(chapters[currentStep].msg),
+            typewriterInstance.write(chapters[currentStep].msg),
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 6000))
         ]);
     } catch (e) {
         output.innerText = chapters[currentStep].msg;
     }
 
-    // 6. Progress & Unlock
-    currentStep++;
+    // 8. Update Progress Bar
     const bar = document.getElementById('bar');
-    if (bar) bar.style.width = ((currentStep) / chapters.length * 100) + "%";
+    if (bar) {
+        const progress = ((currentStep + 1) / chapters.length) * 100;
+        bar.style.width = progress + "%";
+    }
 
+    // 9. Prepare for the next step
+    currentStep++;
+    
+    // 10. UNLOCK BUTTON & SET TEXT LOGIC
     btn.disabled = false;
     btn.style.opacity = "1";
 
-    // YOUR TEXT LOGIC (Preserved):
-    // If we are not at the end, show "Continue". 
-    // If we are at the very last step, show "I Love You ❤️"
-    if (currentStep < chapters.length) {
+    // --- HERE IS THE LOGIC YOU ASKED FOR ---
+    if (currentStep < chapters.length - 1) {
+        // For all normal chapters (1, 2, 3), button says "Continue"
         btn.innerText = "Continue";
+    } else if (currentStep === chapters.length - 1) {
+        // We just finished the 2nd to last card. Next click is the final one.
+        btn.innerText = "One Question...";
     } else {
+        // We just finished the Last Card. We are done.
         btn.innerText = "I Love You ❤️";
     }
-    
-    // Optional: Visual burst effect
+
+    // Visual effect
     if(typeof createBurst === 'function') createBurst();
 }
 
