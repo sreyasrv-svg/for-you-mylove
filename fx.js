@@ -150,3 +150,38 @@ function isFinalLoveClick() {
     const btn = document.getElementById('action-btn');
     return btn && btn.innerText.includes('I Love You');
 }
+
+// Dodging No button fun
+function makeNoButtonDodge() {
+    const noBtn = document.getElementById('no-dodge-btn');
+    if (!noBtn) return;
+
+    noBtn.addEventListener('mouseover', () => {  // hover starts the chaos
+        dodgeNoButton();
+    });
+
+    noBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // prevent any default
+        dodgeNoButton();
+        noBtn.innerText = "Nope... 😏";  // changes text each time
+    });
+
+    function dodgeNoButton() {
+        const maxX = window.innerWidth - 220;   // keep it on screen
+        const maxY = window.innerHeight - 100;
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        noBtn.style.position = 'fixed';         // detach from card
+        noBtn.style.left = newX + 'px';
+        noBtn.style.top = newY + 'px';
+        noBtn.style.transition = 'all 0.4s ease-out';
+        noBtn.style.transform = 'scale(0.9) rotate(' + (Math.random()*20 - 10) + 'deg)';
+        
+        // Optional: make it smaller/faster after a few dodges
+        if (Math.random() < 0.3) {
+            noBtn.style.fontSize = '0.9em';
+            noBtn.style.padding = '12px 0';
+        }
+    }
+}

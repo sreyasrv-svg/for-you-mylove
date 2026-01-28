@@ -92,9 +92,33 @@ async function nextChapter() {
         // We just finished the 2nd to last card. Next click is the final one.
         btn.innerText = "One Question...";
     } else {
-        // We just finished the Last Card. We are done.
-        btn.innerText = "Yes!!❤️I Love You ❤️";
+    // We just finished the Last Card. Show Yes/No proposal instead of old button
+    btn.style.display = 'none';  // hide old "I Love You" button
+
+    const proposalDiv = document.getElementById('proposal-buttons');
+    if (proposalDiv) {
+        proposalDiv.style.display = 'flex';
+        
+        const yesBtn = document.getElementById('yes-love-btn');
+        const noBtn = document.getElementById('no-dodge-btn');
+        
+        yesBtn.style.display = 'block';
+        noBtn.style.display = 'block';
+        
+        // Yes button triggers the explosion
+        yesBtn.onclick = () => {
+            loveExplosion();
+            if (typeof createBurst === 'function') createBurst();
+            // Optional: hide proposal after yes
+            proposalDiv.style.display = 'none';
+        };
+
+        // Start dodging behavior
+        if (typeof makeNoButtonDodge === 'function') {
+            makeNoButtonDodge();
+        }
     }
+}
 
     // Visual effect
     if(typeof createBurst === 'function') createBurst();
@@ -106,3 +130,14 @@ async function nextChapter() {
 // Browser Tab Messages
 window.onblur = () => { if(currentStep < 5) document.title = "Come back to me! ❤️"; };
 window.onfocus = () => { document.title = "For Simran ❤️"; };
+
+window.addEventListener('resize', () => {
+    const noBtn = document.getElementById('no-dodge-btn');
+    if (noBtn && noBtn.style.position === 'fixed') {
+        // snap back to random spot on resize
+        const maxX = window.innerWidth - 220;
+        const maxY = window.innerHeight - 100;
+        noBtn.style.left = (Math.random() * maxX) + 'px';
+        noBtn.style.top = (Math.random() * maxY) + 'px';
+    }
+});
