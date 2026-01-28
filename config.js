@@ -15,7 +15,7 @@ const SIMRAN_DATA = {
         },
         { 
             title: "Forever & Always ❤️", 
-            msg: "Happy Valentine's Day ❤️, Simran! You're the brightest star in my sky. I'm so glad you're mine, today and for all time. All the stars align when you say: 'You are mine.'"
+            msg: "Happy Valentine’s Day ❤️, Simran! You are the brightest star in my sky. Like threads of time that twist and realign, the heart knows quietly that you are mine."
         },
         {
             title: "", 
