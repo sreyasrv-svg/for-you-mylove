@@ -144,3 +144,9 @@ function loveExplosion() {
     
     setTimeout(() => msg.remove(), 5500);
 }
+
+// Helper to detect if we're on the final "done" state and button says I Love You
+function isFinalLoveClick() {
+    const btn = document.getElementById('action-btn');
+    return btn && btn.innerText.includes('I Love You');
+}

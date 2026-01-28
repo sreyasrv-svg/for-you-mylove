@@ -4,6 +4,15 @@ let typewriterInstance = null;
 let isTyping = false;
 
 async function nextChapter() {
+
+    // Check for final love click BEFORE anything else
+    if (currentStep >= SIMRAN_DATA.timeline.length && isFinalLoveClick()) {
+    loveExplosion();
+    // Optional: add a little extra burst too if you want
+    if (typeof createBurst === 'function') createBurst();
+    // You can return here if you DON'T want it to do anything else after
+    // return;   ← uncomment this line if you want to STOP after explosion
+    }
     if (isTyping) return;     // ← ADD THIS LINE
     isTyping = true;          // ← ADD THIS LINE
 
