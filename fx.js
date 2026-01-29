@@ -112,7 +112,7 @@ function loveExplosion() {
 
     // 3. Floating "YES!!" or custom message in center (you can change text)
     const msg = document.createElement('div');
-    msg.innerHTML = '❤️I LOVE YOU TOO!!❤️\n❤️\n❤️Simran❤️';
+    msg.innerHTML = '❤️I LOVE YOU TOO!!❤️❤️Simran❤️';
     msg.style.position = 'absolute';
     msg.style.left = '50%';
     msg.style.top = '50%';
